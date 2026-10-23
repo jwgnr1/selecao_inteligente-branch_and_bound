@@ -37,6 +37,10 @@ public class Selecao {
 
         for (Projeto projeto : projetos) {
             if (projeto.obrigatorio) {
+                if (temConflito(projeto, codigosObrigatorios)) {
+                    throw new IllegalArgumentException(
+                            "O projeto obrigatório " + projeto.codigo + " é incompatível com outro obrigatório");
+                }
                 codigosObrigatorios.add(projeto.codigo);
                 custoObrigatorios += projeto.custo;
                 beneficioObrigatorios += projeto.beneficio;
@@ -74,7 +78,10 @@ public class Selecao {
 
             Projeto projetoAtual = projetosOrdenados[proximoNivel];
 
-            if (noAtual.custoAtual + projetoAtual.custo <= orcamento) {
+            boolean cabeNoOrcamento = noAtual.custoAtual + projetoAtual.custo <= orcamento;
+            boolean semConflito = !temConflito(projetoAtual, noAtual.projetosAdotados);
+
+            if (cabeNoOrcamento && semConflito) {
                 List<String> adotadosComProjeto = new ArrayList<>(noAtual.projetosAdotados);
                 adotadosComProjeto.add(projetoAtual.codigo);
 
