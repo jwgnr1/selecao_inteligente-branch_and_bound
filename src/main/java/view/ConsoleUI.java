@@ -25,11 +25,12 @@ public class ConsoleUI {
             System.out.println("1. Listar Projetos");
             System.out.println("2. Adicionar Projeto");
             System.out.println("3. Remover Projeto");
-            System.out.println("4. Mudar Status Obrigatório (Alternar)");
-            System.out.println("5. Adicionar Incompatibilidade");
-            System.out.println("6. Remover Incompatibilidade");
-            System.out.println("7. Alterar Orçamento (Atual: R$ " + String.format("%.2f", orcamentoPadrao) + ")");
-            System.out.println("8. Executar Seleção (Branch and Bound)");
+            System.out.println("4. Modificar Projeto");
+            System.out.println("5. Mudar Status Obrigatório (Alternar)");
+            System.out.println("6. Adicionar Incompatibilidade");
+            System.out.println("7. Remover Incompatibilidade");
+            System.out.println("8. Alterar Orçamento (Atual: R$ " + String.format("%.2f", orcamentoPadrao) + ")");
+            System.out.println("9. Executar Seleção (Branch and Bound)");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -51,19 +52,23 @@ public class ConsoleUI {
                 case 3:
                     removerProjeto();
                     break;
+
                 case 4:
-                    mudarObrigatorio();
+                    modificarProjeto();
                     break;
                 case 5:
-                    adicionarIncompatibilidade();
+                    mudarObrigatorio();
                     break;
                 case 6:
-                    removerIncompatibilidade();
+                    adicionarIncompatibilidade();
                     break;
                 case 7:
-                    alterarOrcamento();
+                    removerIncompatibilidade();
                     break;
                 case 8:
+                    alterarOrcamento();
+                    break;
+                case 9:
                     executarSelecao();
                     break;
                 case 0:
@@ -96,7 +101,7 @@ public class ConsoleUI {
         try {
             System.out.println("\n--- ADICIONAR NOVO PROJETO ---");
             System.out.print("Código do projeto (ex: P9): ");
-            String codigo = scanner.nextLine().trim();
+            String codigo = scanner.nextLine().trim().toLowerCase();
 
             System.out.print("Nome do projeto: ");
             String nome = scanner.nextLine().trim();
@@ -123,7 +128,7 @@ public class ConsoleUI {
         try {
             System.out.println("\n--- REMOVER PROJETO ---");
             System.out.print("Digite o código do projeto a ser removido: ");
-            String codigo = scanner.nextLine().trim();
+            String codigo = scanner.nextLine().trim().toLowerCase();
             catalogo.remover(codigo);
             System.out.println("Projeto removido com sucesso!");
         } catch (Exception e) {
@@ -131,11 +136,37 @@ public class ConsoleUI {
         }
     }
 
+    private void modificarProjeto() {
+        try {
+            System.out.println("\n--- MODIFICAR PROJETO ---");
+            System.out.print("Digite o código do projeto a ser modificado: ");
+            String codigo = scanner.nextLine().trim().toLowerCase();
+
+            Projeto modificar = catalogo.buscar(codigo);
+
+            System.out.println("Custo atual: " + modificar.getCusto());
+
+            System.out.print("Digite o novo custo: ");
+            double custo = Double.parseDouble(scanner.nextLine().trim().replace(",", "."));
+
+            System.out.println("Beneficio atual: " + modificar.getBeneficio());
+
+            System.out.print("Digite o novo benefício: ");
+            int beneficio = Integer.parseInt(scanner.nextLine().trim());
+
+            catalogo.modificar(codigo, custo, beneficio);
+            System.out.println("Projeto modificado com sucesso!");
+
+        } catch (Exception e) {
+            System.out.println("Erro ao modificar projeto: " + e.getMessage());
+        }
+    }
+
     private void mudarObrigatorio() {
         try {
             System.out.println("\n--- ALTERAR STATUS OBRIGATÓRIO ---");
             System.out.print("Digite o código do projeto: ");
-            String codigo = scanner.nextLine().trim();
+            String codigo = scanner.nextLine().trim().toLowerCase();
             Projeto p = catalogo.buscar(codigo);
             boolean novoStatus = !p.isObrigatorio();
             p.setObrigatorio(novoStatus);
@@ -150,9 +181,9 @@ public class ConsoleUI {
         try {
             System.out.println("\n--- ADICIONAR INCOMPATIBILIDADE ---");
             System.out.print("Código do primeiro projeto: ");
-            String c1 = scanner.nextLine().trim();
+            String c1 = scanner.nextLine().trim().toLowerCase();
             System.out.print("Código do segundo projeto: ");
-            String c2 = scanner.nextLine().trim();
+            String c2 = scanner.nextLine().trim().toLowerCase();
 
             catalogo.tornarIncompativeis(c1, c2);
             System.out.printf("Projetos %s e %s agora são incompatíveis!\n", c1, c2);
@@ -165,9 +196,9 @@ public class ConsoleUI {
         try {
             System.out.println("\n--- REMOVER INCOMPATIBILIDADE ---");
             System.out.print("Código do primeiro projeto: ");
-            String c1 = scanner.nextLine().trim();
+            String c1 = scanner.nextLine().trim().toLowerCase();
             System.out.print("Código do segundo projeto: ");
-            String c2 = scanner.nextLine().trim();
+            String c2 = scanner.nextLine().trim().toLowerCase();
 
             catalogo.removerIncompativeis(c1, c2);
             System.out.printf("Incompatibilidade entre %s e %s removida!\n", c1, c2);

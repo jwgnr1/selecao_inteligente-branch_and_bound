@@ -45,6 +45,15 @@ public class Catalogo {
         }
     }
 
+    public void modificar(String codigo, double custo, int beneficio) {
+        Projeto modificado = buscar(codigo);
+        Validator.validarCusto(custo);
+        Validator.validarBeneficio(beneficio);
+
+        modificado.setCusto(custo);
+        modificado.setBeneficio(beneficio);
+    }
+
     public Map<String, Projeto> getProjetosMap() {
         return projetos;
     }

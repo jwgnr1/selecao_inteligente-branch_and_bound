@@ -15,8 +15,8 @@ public class Projeto {
 
     public Projeto(String codigo, String nome, double custo, int beneficio, boolean obrigatorio) {
         Validator.validarProjeto(codigo, nome, custo, beneficio, obrigatorio);
-        this.codigo = codigo;
-        this.nome = nome;
+        this.codigo = codigo.toLowerCase();
+        this.nome = nome.toLowerCase();
         this.custo = custo;
         this.beneficio = beneficio;
         this.obrigatorio = obrigatorio;
