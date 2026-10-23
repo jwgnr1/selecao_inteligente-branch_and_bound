@@ -1,15 +1,27 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import model.No;
+import model.Projeto;
+import service.Selecao;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Projeto[] projetos = {
+                new Projeto("P1", "Sistema ERP Interno", 40000, 70, false),
+                new Projeto("P2", "App Mobile", 25000, 40, false),
+                new Projeto("P3", "Migração para Nuvem", 60000, 90, true),
+                new Projeto("P4", "Chatbot IA", 30000, 35, false),
+                new Projeto("P5", "Reformulação de Segurança", 50000, 80, false),
+                new Projeto("P6", "Ferramenta de BI", 15000, 25, false),
+                new Projeto("P7", "Automação RPA", 35000, 50, false),
+                new Projeto("P8", "Portal do Cliente", 20000, 30, false)
+        };
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+
+        double orcamento = 150000;
+        No melhor = Selecao.resolver(projetos, orcamento);
+
+        System.out.println("Orçamento: R$ " + orcamento);
+        System.out.println("Benefício máximo: " + melhor.beneficioAtual);
+        System.out.println("Custo total: R$ " + melhor.custoAtual);
+        System.out.println("Projetos adotados: " + melhor.projetosAdotados);
     }
 }
