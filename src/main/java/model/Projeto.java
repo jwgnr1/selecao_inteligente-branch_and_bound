@@ -58,8 +58,15 @@ public class Projeto {
     public static void tornarIncompativeis(Projeto a, Projeto b) {
         Validator.validarObjeto(a, "Projeto");
         Validator.validarObjeto(b, "Projeto");
-        a.incompativeis.add(b.codigo);
-        b.incompativeis.add(a.codigo);
+        if (!a.incompativeis.contains(b.codigo)) a.incompativeis.add(b.codigo);
+        if (!b.incompativeis.contains(a.codigo)) b.incompativeis.add(a.codigo);
+    }
+
+    public static void removerIncompatibilidade(Projeto a, Projeto b) {
+        Validator.validarObjeto(a, "Projeto");
+        Validator.validarObjeto(b, "Projeto");
+        a.incompativeis.remove(b.codigo);
+        b.incompativeis.remove(a.codigo);
     }
 
 }
