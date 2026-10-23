@@ -9,16 +9,21 @@ public class Catalogo {
     private final Map<String, Projeto> projetos = new LinkedHashMap<>();
 
     public void adicionar(Projeto projeto) {
-        if (projetos.putIfAbsent(projeto.codigo, projeto) != null) {
-            throw new IllegalArgumentException("Código duplicado: " + projeto.codigo);
+
+        Validator.validarObjeto(projeto, "Projeto");
+        if (projetos.putIfAbsent(projeto.getCodigo(), projeto) != null) {
+            throw new IllegalArgumentException("Código duplicado: " + projeto.getCodigo());
         }
     }
 
     public Projeto buscar(String codigo) {
+       Validator.validarString(codigo, "Codigo do projeto");
+
         Projeto projeto = projetos.get(codigo);
         if (projeto == null) {
             throw new IllegalArgumentException("Projeto não encontrado: " + codigo);
         }
+
         return projeto;
     }
 
