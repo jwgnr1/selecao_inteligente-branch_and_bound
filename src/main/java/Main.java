@@ -1,5 +1,4 @@
-import Util.Catalogo;
-import model.Projeto;
+import util.Catalogo;
 import view.ConsoleUI;
 
 public class Main {

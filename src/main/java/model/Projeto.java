@@ -1,6 +1,6 @@
 package model;
 
-import Util.Validator;
+import util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;

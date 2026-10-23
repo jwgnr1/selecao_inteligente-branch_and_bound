@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 public class Validator {
     public static void validarObjeto(Object objeto, String nome) {

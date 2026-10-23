@@ -1,6 +1,6 @@
 package view;
 
-import Util.Catalogo;
+import util.Catalogo;
 import model.No;
 import model.Projeto;
 import service.Selecao;

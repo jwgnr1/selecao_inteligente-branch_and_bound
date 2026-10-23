@@ -1,7 +1,7 @@
 
 package service;
 
-import Util.Validator;
+import util.Validator;
 import model.No;
 import model.Projeto;
 
